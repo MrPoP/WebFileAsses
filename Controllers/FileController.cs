@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using WebFileAsses.Models;
 
 namespace WebFileAsses.Controllers
@@ -16,16 +17,21 @@ namespace WebFileAsses.Controllers
 		}
 		public IActionResult Create(FileItem item)
 		{
-			string str = Directory.GetCurrentDirectory() + @"\wwwroot\Uploads\";
+			string str = Directory.GetCurrentDirectory() + @"\wwwroot\Uploads";
 
             if (item != null)
 			{
 				if(item.File != null)
 				{
-					string PathToSave = Constants.GetSavePath(item.Priority);
+                    var PathToSave = str + Constants.GetSavePath(item.Priority);
 					if (!Directory.Exists(PathToSave))
 						Directory.CreateDirectory(PathToSave);
-				}
+					item.Name = Path.GetFileNameWithoutExtension(item.File.FileName);
+					string NewFileName = Constants.GenericStorageName() + Path.GetExtension(item.File.FileName);
+                    using var stream = new FileStream(PathToSave + NewFileName, FileMode.Create);
+                    item.File.CopyTo(stream);
+					return View("Index");
+                }
 			}
             return View();
 		}

@@ -15,9 +15,9 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseFileServer();
 app.UseRouting();
-
+app.UseSession();
 app.UseAuthorization();
 
 app.MapControllerRoute(
