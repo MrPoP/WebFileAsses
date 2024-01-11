@@ -9,7 +9,11 @@ namespace WebFileAsses.Controllers
 		public List<FileItem> fileItems { get; set; } = new List<FileItem>();
 		public IActionResult Index()
 		{
-			if(fileItems.Count == 0)
+            if (HttpContext.Session.GetString("UserID") == null)
+            {
+                return RedirectToAction("Index", "User");
+            }
+            if (fileItems.Count == 0)
 			{
 				fileItems.Add(new FileItem() { ID = 0, Name = "TestFile", CreatedDate = DateTime.Now });
 			}
