@@ -1,3 +1,5 @@
+using WebFileAsses;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -9,7 +11,7 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
-
+builder.Services.AddEntityFrameworkSqlite().AddDbContext<DatabaseContext>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -26,7 +28,10 @@ app.UseFileServer();
 app.UseRouting();
 app.UseSession();
 app.UseAuthorization();
-
+using (var client = new DatabaseContext())
+{
+    client.Database.EnsureCreated();
+}
 app.MapControllerRoute(
 	name: "default",
 	pattern: "{controller=Home}/{action=Index}/{id?}");

@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebFileAsses.Models;
 
 namespace WebFileAsses.Controllers
 {
     public class UserController : Controller
     {
-        private string email = "1", password = "1", guid = "1";
+        private readonly DatabaseContext _myDbContext = new DatabaseContext();
         public IActionResult Index()
         {
             if(HttpContext.Session.GetString("UserID") != null)
@@ -20,9 +22,9 @@ namespace WebFileAsses.Controllers
                 return RedirectToAction("Index", "Home");
             if (user.Email != null)
             {
-                email = user.Email;
-                password = user.Password;
-                guid = Constants.GenericStorageName();
+                user.Guid = Guid.NewGuid();
+                _myDbContext.Users.Add(user);
+                _myDbContext.SaveChanges();
                 return RedirectToAction("Index", "Home");
             }
             return View("Register");
@@ -33,10 +35,14 @@ namespace WebFileAsses.Controllers
             {
                 return View("Index");
             }
-            if (user.Email == email && user.Password == password)
+            if (user.Email != null && user.Password != null)
             {
-                HttpContext.Session.SetString("UserID", guid);
-                return RedirectToAction("Index", "File");
+                var fuser = _myDbContext.Users.Where(p => p.Email == user.Email && p.Password == user.Password).FirstOrDefault();
+                if (fuser != null)
+                {
+                    HttpContext.Session.SetString("UserID", fuser.Guid.ToString());
+                    return RedirectToAction("Index", "File");
+                }
             }
             return View("Login");
         }
