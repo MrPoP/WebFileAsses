@@ -12,6 +12,15 @@ namespace WebFileAsses
             { 1,  new Priority(){ID = 1, Name = "High", FilePath = @"\High\"} },
             { 2,  new Priority(){ID = 2, Name = "Critical", FilePath = @"\Critical\"} },
         };
+        public static string PriorityName(byte priority)
+        {
+            string str = "";
+            if (AvaliablePriorities.TryGetValue(priority, out Priority? pro))
+            {
+                str = pro.Name;
+            }
+            return str;
+        }
         public static string GetSavePath(byte Id)
         {
             string str = "";

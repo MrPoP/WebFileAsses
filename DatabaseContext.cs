@@ -7,6 +7,7 @@ namespace WebFileAsses
     public class DatabaseContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<FileSet> Files { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var connectionStringBuilder = new SqliteConnectionStringBuilder { DataSource = "MyDb.db" };

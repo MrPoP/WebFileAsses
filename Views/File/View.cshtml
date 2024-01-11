@@ -1,0 +1,61 @@
+﻿@model WebFileAsses.Models.FileItem
+
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>View</h1>
+
+<div>
+    <h4>FileItem</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2" hidden>
+            @Html.DisplayNameFor(model => model.ID)
+        </dt>
+        <dd class="col-sm-10" hidden>
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Priority)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Priority)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Due_date)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Due_date)
+        </dd>
+        <dt class = "col-sm-2" hidden>
+            @Html.DisplayNameFor(model => model.UserID)
+        </dt>
+        <dd class="col-sm-10" hidden>
+            @Html.DisplayFor(model => model.UserID)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new {  id = Model.ID }) |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -25,8 +25,8 @@
             <th>
                 Due_date
             </th>
-            <th hidden>
-                UserID
+            <th>
+                Priority
             </th>
             <th>Actions</th>
         </tr>
@@ -46,12 +46,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Due_date)
             </td>
-            <td hidden>
-                @Html.DisplayFor(modelItem => item.UserID)
+            <td>
+                @Html.DisplayFor(modelItem => item.Priority)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {  id=item.ID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Download", "Download", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "View", new { id = item.ID }) |
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.ID })
             </td>
         </tr>
